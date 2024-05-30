@@ -4,3 +4,6 @@ npm install @chakra-ui/react
 @emotion/styled framer-motion react-router-dom
 @tanstack/react-query react-hook-form
 react-icons/hi
+
+Username: - admin
+password: - password
