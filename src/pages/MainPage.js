@@ -7,7 +7,6 @@ import {
   Tab,
   TabPanel,
   Button,
-  Flex,
 } from "@chakra-ui/react";
 import ActiveSaleOrders from "../components/ActiveSaleOrders";
 import CompletedSaleOrders from "../components/CompletedSaleOrders";
@@ -39,25 +38,24 @@ const MainPage = () => {
 
   return (
     <Box p={4}>
-      <Flex justifyContent="space-between" alignItems="center" mb={4}>
-        <Tabs>
-          <TabList>
-            <Tab>Active Orders</Tab>
-            <Tab>Completed Orders</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>
-              <ActiveSaleOrders onEdit={handleEdit} />
-            </TabPanel>
-            <TabPanel>
-              <CompletedSaleOrders onView={handleView} />
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
-        <Button onClick={handleCreate} colorScheme="blue" ml={4}>
-          + Sale Order
-        </Button>
-      </Flex>
+      <Tabs>
+        <TabList>
+          <Tab>Active Orders</Tab>
+          <Tab>Completed Orders</Tab>
+
+          <Button onClick={handleCreate} colorScheme="blue" ml="auto" size="sm">
+            + Sale Order
+          </Button>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <ActiveSaleOrders onEdit={handleEdit} />
+          </TabPanel>
+          <TabPanel>
+            <CompletedSaleOrders onView={handleView} />
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
       {modalOpen && (
         <SaleOrderModal
           isOpen={modalOpen}
