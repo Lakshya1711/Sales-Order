@@ -3,7 +3,7 @@ import { Table, Tbody, Tr, Td, Thead, Th, Button } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchActiveOrders = async () => {
-  // Simulated fetch operation; replace with actual API call
+  // replace with actual API call
   return [
     {
       id: 1,
@@ -67,7 +67,7 @@ const ActiveSaleOrders = ({ onEdit }) => {
   }
 
   function calculateTotal(items) {
-    if (!items || items.length === 0) return 0; // Handle empty items array gracefully
+    if (!items || items.length === 0) return 0;
 
     return items
       .reduce((total, item) => {

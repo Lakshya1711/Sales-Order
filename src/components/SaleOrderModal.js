@@ -19,11 +19,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-// Simulated products data; replace with actual API call if necessary
+// replace with actual API call if necessary
 const products = [
-  { id: 1, name: "Product 1", price: 100, quantity: 50 },
-  { id: 2, name: "Product 2", price: 150, quantity: 30 },
-  { id: 3, name: "Product 3", price: 200, quantity: 20 },
+  { id: 1, name: "Product 1", sku: "SKU001A", price: 100, quantity: 50 },
+  { id: 2, name: "Product 1", sku: "SKU001B", price: 105, quantity: 30 },
+  { id: 3, name: "Product 2", sku: "SKU002", price: 150, quantity: 30 },
+  { id: 4, name: "Product 3", sku: "SKU003A", price: 200, quantity: 20 },
+  { id: 5, name: "Product 3", sku: "SKU003B", price: 210, quantity: 15 },
 ];
 
 const SaleOrderModal = ({ isOpen, onClose, initialData = {}, readOnly }) => {
@@ -117,7 +119,7 @@ const SaleOrderModal = ({ isOpen, onClose, initialData = {}, readOnly }) => {
               >
                 {products.map((product) => (
                   <option key={product.id} value={product.id}>
-                    {product.name}
+                    {product.name} - {product.sku}
                   </option>
                 ))}
               </Select>
@@ -125,6 +127,7 @@ const SaleOrderModal = ({ isOpen, onClose, initialData = {}, readOnly }) => {
                 <Box key={product.id} mt={2}>
                   <HStack justifyContent="space-between">
                     <Text>{product.name}</Text>
+                    <Text>SKU: {product.sku}</Text>
                     <Text>Price: ${product.price}</Text>
                     <Text>Quantity Left: {product.quantity}</Text>
                     <Input

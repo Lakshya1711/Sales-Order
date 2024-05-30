@@ -18,6 +18,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 
 const fetchCompletedOrders = async () => {
+  // replace with actual API call
   return [
     {
       id: 3,
@@ -119,14 +120,13 @@ const CompletedSaleOrders = ({ onView }) => {
   );
 };
 
-// Helper function to calculate total price based on items
+// function to calculate total price based on items
 const calculateTotal = (items) => {
   return items
     .reduce((total, item) => total + item.price * item.quantity, 0)
     .toFixed(2);
 };
 
-// Helper function to format date
 const formatDate = (dateString) => {
   const date = new Date(dateString);
   return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
