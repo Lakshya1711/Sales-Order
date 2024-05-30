@@ -1,6 +1,20 @@
-// src/components/CompletedSaleOrders.js
-import React from "react";
-import { Table, Tbody, Tr, Td, Thead, Th, Button } from "@chakra-ui/react";
+import React, { useState } from "react";
+import {
+  Table,
+  Tbody,
+  Tr,
+  Td,
+  Thead,
+  Th,
+  Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+} from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchCompletedOrders = async () => {
@@ -30,6 +44,14 @@ const CompletedSaleOrders = ({ onView }) => {
     queryFn: fetchCompletedOrders,
   });
 
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleView = (order) => {
+    setSelectedOrder(order);
+    setIsOpen(true);
+  };
+
   if (isLoading) return <div>Loading...</div>;
 
   return (
@@ -53,11 +75,46 @@ const CompletedSaleOrders = ({ onView }) => {
             <Td>${calculateTotal(order.items)}</Td>
             <Td>{formatDate(order.invoice_date)}</Td>
             <Td>
-              <Button onClick={() => onView(order)}>View</Button>
+              <Button onClick={() => handleView(order)}>View</Button>
             </Td>
           </Tr>
         ))}
       </Tbody>
+
+      {/* Detailed Order View Modal */}
+      <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Completed Sale Details</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <p>
+              <strong>Invoice Number:</strong> {selectedOrder?.invoice_no}
+            </p>
+            <p>
+              <strong>Invoice Date:</strong>{" "}
+              {formatDate(selectedOrder?.invoice_date)}
+            </p>
+            <p>
+              <strong>Customer Name:</strong> {selectedOrder?.customer_name}
+            </p>
+            <p>
+              <strong>Products:</strong>
+            </p>
+            <ul>
+              {selectedOrder?.items.map((item, index) => (
+                <li key={index}>
+                  SKU ID: {item.sku_id}, Price: ${item.price}, Quantity:{" "}
+                  {item.quantity}
+                </li>
+              ))}
+            </ul>
+          </ModalBody>
+          <ModalFooter>
+            <Button onClick={() => setIsOpen(false)}>Close</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Table>
   );
 };

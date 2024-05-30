@@ -1,4 +1,3 @@
-// src/components/ActiveSaleOrders.js
 import React from "react";
 import { Table, Tbody, Tr, Td, Thead, Th, Button } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
@@ -54,26 +53,34 @@ const ActiveSaleOrders = ({ onEdit }) => {
             <Td>${calculateTotal(order.items)}</Td>
             <Td>{formatDate(order.invoice_date)}</Td>
             <Td>
-              <Button onClick={() => onEdit(order)}>Edit</Button>
+              <Button onClick={() => handleEdit(order)}>Edit</Button>
             </Td>
           </Tr>
         ))}
       </Tbody>
     </Table>
   );
-};
 
-// Helper function to calculate total price based on items
-const calculateTotal = (items) => {
-  return items
-    .reduce((total, item) => total + item.price * item.quantity, 0)
-    .toFixed(2);
-};
+  function handleEdit(order) {
+    const total = calculateTotal(order.items);
+    onEdit({ ...order, total }); // Pass order details along with total price to parent component
+  }
 
-// Helper function to format date
-const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+  function calculateTotal(items) {
+    if (!items || items.length === 0) return 0; // Handle empty items array gracefully
+
+    return items
+      .reduce((total, item) => {
+        const itemTotal = item.price * item.quantity;
+        return total + itemTotal;
+      }, 0)
+      .toFixed(2);
+  }
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+  }
 };
 
 export default ActiveSaleOrders;
