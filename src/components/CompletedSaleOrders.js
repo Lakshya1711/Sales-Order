@@ -86,7 +86,9 @@ const CompletedSaleOrders = ({ onView }) => {
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Completed Sale Details</ModalHeader>
+          <ModalHeader style={{ textAlign: "center" }}>
+            Completed Sale Details
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <p>

@@ -74,7 +74,10 @@ const SaleOrderModal = ({ isOpen, onClose, initialData = {}, readOnly }) => {
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Sales Order Form</ModalHeader>
+        <ModalHeader style={{ textAlign: "center" }}>
+          Sales Order Form
+        </ModalHeader>
+
         <ModalCloseButton />
         <ModalBody>
           <VStack spacing={4}>
